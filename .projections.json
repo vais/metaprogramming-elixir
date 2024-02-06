@@ -1,0 +1,159 @@
+{
+  "lib/meta_web/controllers/*_controller.ex": {
+    "type": "controller",
+    "alternate": "test/meta_web/controllers/{}_controller_test.exs",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}Controller do",
+      "  use MetaWeb, :controller",
+      "end"
+    ]
+  },
+
+  "test/meta_web/controllers/*_controller_test.exs": {
+    "type": "test",
+    "alternate": "lib/meta_web/controllers/{}_controller.ex",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}ControllerTest do",
+      "  use MetaWeb.ConnCase, async: true",
+      "end"
+    ]
+  },
+
+  "lib/meta_web/controllers/*_html.ex": {
+    "type": "html",
+    "alternate": "test/meta_web/controllers/{}_html_test.exs",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}HTML do",
+      "  use MetaWeb, :html",
+      "end"
+    ]
+  },
+
+  "test/meta_web/controllers/*_html_test.exs": {
+    "type": "test",
+    "alternate": "lib/meta_web/controllers/{}_html.ex",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}HTMLTest do",
+      "  use MetaWeb.ConnCase, async: true",
+      "",
+      "  alias MetaWeb.{camelcase|capitalize|dot}HTML",
+      "end"
+    ]
+  },
+
+  "lib/meta_web/channels/*_channel.ex": {
+    "type": "channel",
+    "alternate": "test/meta_web/channels/{}_channel_test.exs",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}Channel do",
+      "  use MetaWeb, :channel",
+      "end"
+    ]
+  },
+
+  "test/meta_web/channels/*_channel_test.exs": {
+    "type": "test",
+    "alternate": "lib/meta_web/channels/{}_channel.ex",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}ChannelTest do",
+      "  use MetaWeb.ChannelCase, async: true",
+      "",
+      "  alias MetaWeb.{camelcase|capitalize|dot}Channel",
+      "end"
+    ]
+  },
+
+  "lib/meta_web/live/*.ex": {
+    "type": "live",
+    "alternate": "test/meta_web/live/{}_test.exs",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot} do",
+      "  use MetaWeb, :live_view",
+      "",
+      "  def render(assigns) do",
+      "    ~H\"\"\"",
+      "    \"\"\"",
+      "  end",
+      "end"
+    ]
+  },
+
+  "test/meta_web/live/*_test.exs": {
+    "type": "test",
+    "alternate": "lib/meta_web/live/{}.ex",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}Test do",
+      "  use MetaWeb.ConnCase, async: true",
+      "",
+      "  import Phoenix.LiveViewTest",
+      "",
+      "  test \"\", %{open}conn: conn{close} do",
+      "    {open}:ok, view, _html{close} = live(conn, ~p\"\")",
+      "  end",
+      "end"
+    ]
+  },
+
+  "lib/meta_web/components/*.ex": {
+    "type": "component",
+    "alternate": "test/meta_web/components/{}_test.exs",
+    "related": "lib/meta_web/live/{}_live.ex",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot} do",
+      "  use Phoenix.Component",
+      "end"
+    ]
+  },
+
+  "test/meta_web/components/*_test.exs": {
+    "type": "test",
+    "alternate": "lib/meta_web/components/{}.ex",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}Test do",
+      "  use ExUnit.Case, async: true",
+      "",
+      "  import Phoenix.LiveViewTest",
+      "  import Phoenix.Component, only: [sigil_H: 2]",
+      "  import MetaWeb.{camelcase|capitalize|dot}",
+      "end"
+    ]
+  },
+
+  "test/meta_web/features/*_test.exs": {
+    "type": "feature",
+    "template": [
+      "defmodule MetaWeb.{camelcase|capitalize|dot}Test do",
+      "  use MetaWeb.FeatureCase, async: true",
+      "end"
+    ]
+  },
+
+  "mix.exs": {
+    "type": "mix"
+  },
+
+  "config/*.exs": {
+    "type": "config"
+  },
+
+  "lib/*.ex": {
+    "type": "source",
+    "alternate": "test/{}_test.exs",
+    "template": [
+      "defmodule {camelcase|capitalize|dot} do",
+      "end"
+    ]
+  },
+
+  "test/*_test.exs": {
+    "type": "test",
+    "alternate": "lib/{}.ex",
+    "template": [
+      "defmodule {camelcase|capitalize|dot}Test do",
+      "  use ExUnit.Case, async: true",
+      "",
+      "  alias {camelcase|capitalize|dot}",
+      "end"
+    ]
+  }
+}
