@@ -28,4 +28,18 @@ defmodule Meta.ControlFlow do
       end
     end
   end
+
+  defmacro while(condition, do: block) do
+    quote do
+      try do
+        for _ <- Stream.cycle([nil]) do
+          if unquote(condition), do: unquote(block), else: break()
+        end
+      catch
+        :break -> nil
+      end
+    end
+  end
+
+  def break, do: throw(:break)
 end

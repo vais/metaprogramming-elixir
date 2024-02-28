@@ -65,4 +65,19 @@ defmodule Meta.ControlFlowTest do
       assert result == "this is the else block"
     end
   end
+
+  describe "while/2" do
+    import ControlFlow, only: [while: 2, break: 0]
+
+    test "evaluates block while condition evaluates truthy" do
+      {:ok, pid} = Agent.start_link(fn -> 1 end)
+
+      while (i = Agent.get_and_update(pid, &{&1, &1 + 1})) < 10 do
+        if i > 3, do: break()
+        send(self(), i)
+      end
+
+      assert {:messages, [1, 2, 3]} = :erlang.process_info(self(), :messages)
+    end
+  end
 end
