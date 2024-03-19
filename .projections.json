@@ -16,6 +16,11 @@
       "  use ExUnit.Case, async: true",
       "",
       "  alias Meta.{camelcase|capitalize|dot}",
+      "",
+      "  describe \"\" do",
+      "    test \"\" do",
+      "    end",
+      "  end",
       "end"
     ]
   },
