@@ -2,6 +2,19 @@ defmodule Meta.Mime do
   mime_types = Path.join(:code.priv_dir(:meta), "mime-types.txt")
   @external_resource mime_types
 
+  defmacro __using__(opts) do
+    for {type, exts} <- opts do
+      quote do
+        def exts_from_type(unquote(to_string(type))), do: unquote(exts)
+      end
+    end ++
+      [
+        quote do
+          defdelegate exts_from_type(type), to: unquote(__MODULE__)
+        end
+      ]
+  end
+
   for line <- File.stream!(mime_types, [], :line) do
     [type, rest] =
       line
