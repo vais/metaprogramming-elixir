@@ -18,6 +18,10 @@ defmodule Meta.I18N do
           ]
         ]
       ]
+    ],
+    title: [
+      users: {"user", "users"},
+      users_online: {"There is 1 %{type} user online", "There are %{count} %{type} users online"}
     ]
   )
 

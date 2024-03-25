@@ -30,15 +30,29 @@ defmodule Meta.Translator do
   defp define_translations(locale, path, mappings) do
     for {key, val} <- mappings do
       new_path = append_path(path, key)
+      define_translation(locale, new_path, val)
+    end
+  end
 
-      if Keyword.keyword?(val) do
-        define_translations(locale, new_path, val)
-      else
-        quote do
-          def t(unquote(locale), unquote(new_path), bindings) do
-            unquote(interpolate(val))
-          end
+  defp define_translation(locale, new_path, val) when is_list(val) do
+    define_translations(locale, new_path, val)
+  end
+
+  defp define_translation(locale, new_path, {singular, plural}) do
+    quote do
+      def t(unquote(locale), unquote(new_path), bindings) do
+        case Keyword.get(bindings, :count) do
+          count when count in [nil, 1] -> unquote(interpolate(singular))
+          _ -> unquote(interpolate(plural))
         end
+      end
+    end
+  end
+
+  defp define_translation(locale, new_path, val) do
+    quote do
+      def t(unquote(locale), unquote(new_path), bindings) do
+        unquote(interpolate(val))
       end
     end
   end
