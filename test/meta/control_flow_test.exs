@@ -79,5 +79,27 @@ defmodule Meta.ControlFlowTest do
 
       assert {:messages, [1, 2, 3]} = :erlang.process_info(self(), :messages)
     end
+
+    test "a different approach" do
+      pid = spawn(fn -> Process.sleep(:infinity) end)
+
+      send(self(), :one)
+
+      while Process.alive?(pid) do
+        receive do
+          :one ->
+            send(self(), :two)
+
+          :two ->
+            send(self(), :three)
+
+          :three ->
+            Process.exit(pid, :kill)
+            send(self(), :done)
+        end
+      end
+
+      assert_received :done
+    end
   end
 end
