@@ -42,4 +42,19 @@ defmodule Meta.MimeTest do
       assert Mime.valid_ext?(".argv") == false
     end
   end
+
+  describe "using Meta.Mime" do
+    defmodule MimeMapper do
+      use Meta.Mime, "text/emoji": [".emj"], "text/elixir": [".exs"]
+    end
+
+    test "with default configuration" do
+      assert MimeMapper.exts_from_type("application/javascript") == [".js"]
+    end
+
+    test "with custom configuration" do
+      assert MimeMapper.exts_from_type("text/elixir") == [".exs"]
+      assert MimeMapper.exts_from_type("text/emoji") == [".emj"]
+    end
+  end
 end
